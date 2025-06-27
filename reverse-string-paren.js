@@ -1,23 +1,18 @@
 function reverseInParens(s) {
-    let stack = [], result = "", charStack = [];
+    let stack = [], current = '';
 
-    for(let i=0; i<s.length; i++) {
-        if(s[i] !== ')') {
-            stack.push(s[i])
-        }  else {
-            let temp = [];
-            while(stack.length && stack[stack.length -1] !== '(') {
-                temp.push(stack.pop())
-            }
-            stack.pop();
-
-            for(let char of temp) {
-                stack.push(char)
-            }
+    for(let char of s) {
+        if(char === "(") {
+            stack.push(current);
+            current = ''
+        } else if(char === ")") {
+            current = stack.pop() + [...current].reverse().join('')
+        } else {
+            current+=char
         }
     }
-    
-    return stack.join('')
+
+    return current
 }
 
 let str = "(ab)(cd)"
