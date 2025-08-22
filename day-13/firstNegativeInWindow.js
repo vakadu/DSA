@@ -1,21 +1,24 @@
-function firstNegativeInWindow(arr, k) {
-    let res = [], dq=[];
+function firstNegativeInWindow(nums, k) {
+    let dq=[], res=[];
 
-    for (let index = 0; index < arr.length; index++) {
-        if(arr[index] < 0) {
-            dq.push(index)
+    for (let index = 0; index < nums.length; index++) {
+        
+        if(nums[index] < 0) {
+            dq.push(index);
         }
 
-        while(dq[0] <= index-k) {
+        let left = index-k+1;
+
+        while(dq.length && dq[0] < left) {
             dq.shift()
         }
 
         if(index>=k-1) {
-            res.push(dq.length ? arr[dq[0]] : 0)
+            res.push(nums[dq[0]])
         }
     }
 
-    return res
+    return res;
 }
 
 // quick tests
